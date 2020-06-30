@@ -15,14 +15,14 @@ private:
 			}
 			virtual ~ReleaseSingle(){
 				cout<<"ReleaseSingle destructor"<<endl;
-				//delete Singleton::instance;
+				delete Singleton::instance;
 			}
 		};
 		
 		
 		Singleton &operator=(const Singleton&)=delete;//不允许赋值
 		Singleton(const Singleton&)=delete;//不允许复制
-		//static Singleton *instance;
+		static Singleton *instance;
 		
 		static int count;
 public:
@@ -34,8 +34,7 @@ public:
 		static Singleton *getInstance()
 		{
 			static ReleaseSingle releaseInstance;
-			static Singleton instance;
-			return &instance;
+			return instance;
 		}
 		void print()
 		{
@@ -44,7 +43,7 @@ public:
 };
 
 //静态变量的初始化在类外，并且不在需要static修饰
-//Singleton* Singleton::instance = new Singleton();
+Singleton* Singleton::instance = new Singleton();
 int Singleton::count = 0;
 
 int main()
